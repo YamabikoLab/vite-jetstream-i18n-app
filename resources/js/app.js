@@ -1,31 +1,27 @@
 import { createApp, h } from 'vue';
-import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
+import { createInertiaApp } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
- 
-import axios from 'axios';
-axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
- 
-import '../css/app.css';
- 
-InertiaProgress.init();
- 
-const app = document.getElementById('app');
- 
-const pages = import.meta.glob('./Pages/**/*.vue');
- 
-createApp({
-    render: () =>
-        h(InertiaApp, {
-            initialPage: JSON.parse(app.dataset.page),
-            resolveComponent: name => {
-                const importPage = pages[`./Pages/${name}.vue`];
-                if (!importPage) {
-                    throw new Error(`Unknown page ${name}. Is it located under Pages with a .vue extension?`);
-                }
-                return importPage().then(module => module.default)
-            }
-        }),
-})
-    .mixin({ methods: { route } })
-    .use(InertiaPlugin)
-    .mount(app);
+import '../css/app.css'
+
+const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+
+createInertiaApp({
+    title: (title) => `${title} - ${appName}`,
+    resolve: async name => {
+        if (import.meta.env.DEV) {
+            return await import(`./Pages/${name}.vue`)
+        } else {
+            let pages = import.meta.glob('./Pages/**/*.vue')
+            const importPage = pages[`./Pages/${name}.vue`]
+            return importPage().then(module)
+        }
+    },
+    setup({ el, app, props, plugin }) {
+        return createApp({ render: () => h(app, props) })
+            .use(plugin)
+            .mixin({ methods: { route } })
+            .mount(el);
+    },
+});
+
+InertiaProgress.init({ color: '#4B5563' });
