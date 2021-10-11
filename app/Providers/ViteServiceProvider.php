@@ -29,7 +29,7 @@ class ViteServiceProvider extends ServiceProvider
     {
         Blade::directive('vite', function () {
             if (App::isLocal()) {
-                return new HtmlString(<<<HTML
+                    return new HtmlString(<<<HTML
                 <script type="module" src="http://localhost:3000/resources/js/app.js"></script>
             HTML);
             }
