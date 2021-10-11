@@ -1,13 +1,10 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "mix",
-        "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
-        "prod": "npm run production",
-        "production": "mix --production"
+        "predev": "printf \"dev\" > public/hot",
+        "dev": "vite",
+        "preprod": "printf \"prod\" > public/hot",
+        "prod": "vite build"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.10.0",
@@ -24,5 +21,9 @@
         "tailwindcss": "^2.0.1",
         "vue": "^3.0.5",
         "vue-loader": "^16.1.2"
+    },
+    "dependencies": {
+        "@vitejs/plugin-vue": "^1.9.3",
+        "vite": "^2.6.5"
     }
 }

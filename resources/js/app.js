@@ -1,20 +1,31 @@
-require('./bootstrap');
-
 import { createApp, h } from 'vue';
-import { createInertiaApp } from '@inertiajs/inertia-vue3';
+import { App as InertiaApp, plugin as InertiaPlugin } from '@inertiajs/inertia-vue3';
 import { InertiaProgress } from '@inertiajs/progress';
-
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
-
-createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
-    resolve: (name) => require(`./Pages/${name}.vue`),
-    setup({ el, app, props, plugin }) {
-        return createApp({ render: () => h(app, props) })
-            .use(plugin)
-            .mixin({ methods: { route } })
-            .mount(el);
-    },
-});
-
-InertiaProgress.init({ color: '#4B5563' });
+ 
+import axios from 'axios';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+ 
+import '../css/app.css';
+ 
+InertiaProgress.init();
+ 
+const app = document.getElementById('app');
+ 
+const pages = import.meta.glob('./Pages/**/*.vue');
+ 
+createApp({
+    render: () =>
+        h(InertiaApp, {
+            initialPage: JSON.parse(app.dataset.page),
+            resolveComponent: name => {
+                const importPage = pages[`./Pages/${name}.vue`];
+                if (!importPage) {
+                    throw new Error(`Unknown page ${name}. Is it located under Pages with a .vue extension?`);
+                }
+                return importPage().then(module => module.default)
+            }
+        }),
+})
+    .mixin({ methods: { route } })
+    .use(InertiaPlugin)
+    .mount(app);
