@@ -1,12 +1,12 @@
-const { resolve } = require('path');
+import path from 'path'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue';
 
-export default ({ command }) => ({
-  base: command === 'serve' ? '' : '/dist/',
-  publicDir: 'fake_dir_so_nothing_gets_copied',
+export default defineConfig(({ command }) => ({
+  base: command === 'serve' ? '/' : '/dist/',
   build: {
     manifest: true,
-    outDir: resolve(__dirname, 'public/dist'),
+    outDir: path.resolve(__dirname, 'public/dist'),
     rollupOptions: {
       input: 'resources/js/app.js',
     },
@@ -20,7 +20,7 @@ export default ({ command }) => ({
 
   resolve: {
     alias: {
-      '@': resolve('./resources/js'),
+      '@': path.resolve(__dirname,'/resources/js'),
     },
   },
-});
+}));

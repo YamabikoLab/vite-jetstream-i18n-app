@@ -1,10 +1,8 @@
 {
     "private": true,
     "scripts": {
-        "predev": "printf \"dev\" > public/hot",
         "dev": "vite",
-        "preprod": "printf \"prod\" > public/hot",
-        "prod": "vite build"
+        "build": "vite build"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.10.0",
@@ -12,6 +10,7 @@
         "@inertiajs/progress": "^0.2.6",
         "@tailwindcss/forms": "^0.2.1",
         "@tailwindcss/typography": "^0.3.0",
+        "@vitejs/plugin-vue": "^1.9.3",
         "@vue/compiler-sfc": "^3.0.5",
         "axios": "^0.21",
         "laravel-mix": "^6.0.6",
@@ -19,11 +18,8 @@
         "postcss": "^8.1.14",
         "postcss-import": "^12.0.1",
         "tailwindcss": "^2.0.1",
+        "vite": "^2.6.5",
         "vue": "^3.0.5",
         "vue-loader": "^16.1.2"
-    },
-    "dependencies": {
-        "@vitejs/plugin-vue": "^1.9.3",
-        "vite": "^2.6.5"
     }
 }
