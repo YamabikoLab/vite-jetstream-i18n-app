@@ -1,8 +1,8 @@
 <template>
-    <app-layout title="Team Settings">
+    <app-layout :title="$t('Team Settings')">
         <template #header>
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Team Settings
+                {{ $t('Team Settings') }}
             </h2>
         </template>
 

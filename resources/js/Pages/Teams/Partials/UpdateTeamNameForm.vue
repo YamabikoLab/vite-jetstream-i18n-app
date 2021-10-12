@@ -1,11 +1,11 @@
 <template>
     <jet-form-section @submitted="updateTeamName">
         <template #title>
-            Team Name
+            {{ $t('Team Name') }}
         </template>
 
         <template #description>
-            The team's name and owner information.
+            {{ $t("The team's name and owner information.") }}
         </template>
 
         <template #form>
@@ -25,7 +25,7 @@
 
             <!-- Team Name -->
             <div class="col-span-6 sm:col-span-4">
-                <jet-label for="name" value="Team Name" />
+                <jet-label for="name" :value="$t('Team Name')" />
 
                 <jet-input id="name"
                             type="text"
@@ -39,11 +39,11 @@
 
         <template #actions v-if="permissions.canUpdateTeam">
             <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                Saved.
+                {{ $t('Saved.') }}
             </jet-action-message>
 
             <jet-button :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                Save
+                {{ $t('Save') }}
             </jet-button>
         </template>
     </jet-form-section>
@@ -51,12 +51,12 @@
 
 <script>
     import { defineComponent } from 'vue'
-    import JetActionMessage from '@/Jetstream/ActionMessage.vue'
-    import JetButton from '@/Jetstream/Button.vue'
-    import JetFormSection from '@/Jetstream/FormSection.vue'
-    import JetInput from '@/Jetstream/Input.vue'
-    import JetInputError from '@/Jetstream/InputError.vue'
-    import JetLabel from '@/Jetstream/Label.vue'
+    import JetActionMessage from '@/Jetstream/ActionMessage'
+    import JetButton from '@/Jetstream/Button'
+    import JetFormSection from '@/Jetstream/FormSection'
+    import JetInput from '@/Jetstream/Input'
+    import JetInputError from '@/Jetstream/InputError'
+    import JetLabel from '@/Jetstream/Label'
 
     export default defineComponent({
         components: {
