@@ -10,6 +10,9 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
         <!-- Scripts -->
+        <script>
+            var __locale = '{{ app()->getLocale() }}'
+        </script>
         @routes
         <!-- Vite -->
         @vite

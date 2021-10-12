@@ -1,6 +1,7 @@
 import path from 'path'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue';
+import vueI18n from '@intlify/vite-plugin-vue-i18n'
 
 export default defineConfig(({ command }) => ({
   base: command === 'serve' ? '/' : '/dist/',
@@ -12,7 +13,12 @@ export default defineConfig(({ command }) => ({
     },
   },
 
-  plugins: [vue()],
+  plugins: [
+    vue(),
+    vueI18n({
+      include: path.resolve(__dirname, './resources/lang/**')
+    })
+  ],
 
   server: {
     host: '0.0.0.0'
