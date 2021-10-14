@@ -11,7 +11,7 @@
 
         <!-- Scripts -->
         <script>
-            var _locale = '{{ app()->getLocale() }}'
+            var __locale = '{{ app()->getLocale() }}'
         </script>
         @routes
         <!-- Vite -->
