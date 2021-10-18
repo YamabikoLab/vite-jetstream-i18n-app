@@ -11,7 +11,7 @@
 
         <!-- Scripts -->
         <script>
-            var __locale = '{{ app()->getLocale() }}'
+            window.__locale = '{{ app()->getLocale() }}'
         </script>
         @routes
         <!-- Vite -->
